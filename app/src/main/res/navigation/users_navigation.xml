@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/users_navigation"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.demo.clean.framework.screens.userprofile.UserProfileFragment"
+        android:label="UserProfileFragment">
+        <argument
+            android:name="userInfo"
+            app:argType="com.demo.clean.domain.models.UserShortInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.demo.clean.framework.screens.users.UsersFragment"
+        android:label="UsersFragment">
+        <action
+            android:id="@+id/action_usersFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment">
+        </action>
+    </fragment>
+</navigation>
