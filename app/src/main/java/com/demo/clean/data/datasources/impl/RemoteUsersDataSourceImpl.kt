@@ -3,8 +3,8 @@ package com.demo.clean.data.datasources.impl
 import com.demo.clean.data.datasources.RemoteUsersDataSource
 import com.demo.clean.data.datasources.remote.RemoteUsersApi
 import com.demo.clean.data.mappers.UserProfileMapper
-import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.domain.models.UserProfile
+import com.demo.clean.domain.models.UserShortInfo
 import io.reactivex.Observable
 
 class RemoteUsersDataSourceImpl(

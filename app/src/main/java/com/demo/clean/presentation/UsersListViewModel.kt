@@ -1,5 +1,6 @@
 package com.demo.clean.presentation
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.demo.clean.data.datasources.remote.RemoteUsersApi
 import com.demo.clean.domain.models.UserShortInfo
@@ -22,7 +23,7 @@ class UsersListViewModel(private val usersUseCase: GetUsersUseCase) : ViewModel(
             usersUseCase.getUsersList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { users.postValue(it) }
+                .subscribe({ users.postValue(it) }, { Log.e("error", it.message ?: "Error") })
         )
     }
 
