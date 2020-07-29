@@ -4,13 +4,14 @@ import com.demo.clean.data.datasources.RemoteUsersDataSource
 import com.demo.clean.domain.models.UserProfile
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.domain.repository.UsersRepository
+import io.reactivex.Observable
 
 class UsersRepositoryImpl(private val dataSource: RemoteUsersDataSource) : UsersRepository {
-    override suspend fun getUserProfile(userId: Int): UserProfile {
+    override fun getUserProfile(userId: Int): Observable<UserProfile> {
         return dataSource.getUserProfile(userId)
     }
 
-    override suspend fun getUsersList(): List<UserShortInfo> {
+    override fun getUsersList(): Observable<List<UserShortInfo>> {
         return dataSource.getUsersList()
     }
 }

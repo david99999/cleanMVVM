@@ -2,8 +2,9 @@ package com.demo.clean.domain.repository
 
 import com.demo.clean.domain.models.UserProfile
 import com.demo.clean.domain.models.UserShortInfo
+import io.reactivex.Observable
 
 interface UsersRepository {
-    suspend fun getUserProfile(userId: Int): UserProfile
-    suspend fun getUsersList(): List<UserShortInfo>
+    fun getUserProfile(userId: Int): Observable<UserProfile>
+    fun getUsersList(): Observable<List<UserShortInfo>>
 }
