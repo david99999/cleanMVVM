@@ -11,6 +11,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.clean.R
 import com.demo.clean.data.di.ServiceLocator
+import com.demo.clean.data.mappers.UserDetailedInfoMapper
+import com.demo.clean.data.mappers.UserShortInfoMapper
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.framework.room.UsersDatabase
 import com.demo.clean.presentation.UsersListViewModel
@@ -27,7 +29,9 @@ class UsersFragment : Fragment() {
                 ServiceLocator.getRepository(
                     UsersDatabase.getUsersDao(
                         requireActivity().application
-                    )
+                    ),
+                    UserDetailedInfoMapper(),
+                    UserShortInfoMapper()
                 )
             )
         )

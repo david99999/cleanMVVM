@@ -1,11 +1,11 @@
 package com.demo.clean.data.mappers
 
 import com.demo.clean.domain.models.UserShortInfo
-import com.demo.clean.domain.models.UserProfile
+import com.demo.clean.data.models.network.UserProfile
 
-class UserProfileMapper {
-    operator fun invoke(userProfile: UserProfile): UserShortInfo {
-        userProfile.apply {
+class UserShortInfoMapper : Mapper<UserProfile, UserShortInfo> {
+    override fun map(input: UserProfile): UserShortInfo {
+        input.apply {
             return UserShortInfo(
                 id = id,
                 name = name.plus(" (${username})"),

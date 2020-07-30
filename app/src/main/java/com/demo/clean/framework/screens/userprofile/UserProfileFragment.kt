@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.demo.clean.R
 import com.demo.clean.data.di.ServiceLocator
+import com.demo.clean.data.mappers.UserDetailedInfoMapper
+import com.demo.clean.data.mappers.UserShortInfoMapper
 import com.demo.clean.framework.room.UsersDatabase
 import com.demo.clean.presentation.UserProfileViewModel
 import com.demo.clean.presentation.UserProfileViewModelFactory
@@ -24,7 +26,9 @@ class UserProfileFragment : Fragment() {
                 ServiceLocator.getRepository(
                     UsersDatabase.getUsersDao(
                         requireActivity().application
-                    )
+                    ),
+                    UserDetailedInfoMapper(),
+                    UserShortInfoMapper()
                 )
             )
         )
@@ -44,8 +48,8 @@ class UserProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.userProfile.observe(viewLifecycleOwner, Observer { profile ->
             userProfileName.text = profile.name
-            userProfileCompany.text = profile.company.name
-            userProfileAddress.text = profile.address.street
+            userProfileCompany.text = profile.company
+            userProfileAddress.text = profile.address
         })
         viewModel.getUserProfile(args.userInfo.id)
     }
