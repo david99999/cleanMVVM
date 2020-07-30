@@ -2,16 +2,11 @@ package com.demo.clean.presentation
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.demo.clean.data.datasources.remote.RemoteUsersApi
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.usecases.GetUsersUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.properties.Delegates
 
 class UsersListViewModel(private val usersUseCase: GetUsersUseCase) : ViewModel() {
 

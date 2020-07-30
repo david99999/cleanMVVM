@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.demo.clean.R
 import com.demo.clean.data.di.ServiceLocator
+import com.demo.clean.framework.room.UsersDatabase
 import com.demo.clean.presentation.UserProfileViewModel
 import com.demo.clean.presentation.UserProfileViewModelFactory
 import com.demo.clean.usecases.GetUserInfoUseCase
@@ -19,7 +20,13 @@ import kotlinx.android.synthetic.main.fragment_user_profile.*
 class UserProfileFragment : Fragment() {
     private val viewModel: UserProfileViewModel by viewModels {
         UserProfileViewModelFactory(
-            GetUserInfoUseCase(ServiceLocator.getRepository())
+            GetUserInfoUseCase(
+                ServiceLocator.getRepository(
+                    UsersDatabase.getUsersDao(
+                        requireActivity().application
+                    )
+                )
+            )
         )
     }
 

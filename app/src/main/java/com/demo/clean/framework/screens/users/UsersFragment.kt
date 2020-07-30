@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.clean.R
 import com.demo.clean.data.di.ServiceLocator
 import com.demo.clean.domain.models.UserShortInfo
+import com.demo.clean.framework.room.UsersDatabase
 import com.demo.clean.presentation.UsersListViewModel
 import com.demo.clean.presentation.UsersListViewModelFactory
 import com.demo.clean.usecases.GetUsersUseCase
@@ -21,7 +22,15 @@ class UsersFragment : Fragment() {
     private lateinit var content: View
     private lateinit var adapter: UsersAdapter
     private val viewModel: UsersListViewModel by viewModels {
-        UsersListViewModelFactory(GetUsersUseCase(ServiceLocator.getRepository()))
+        UsersListViewModelFactory(
+            GetUsersUseCase(
+                ServiceLocator.getRepository(
+                    UsersDatabase.getUsersDao(
+                        requireActivity().application
+                    )
+                )
+            )
+        )
     }
 
     override fun onCreateView(

@@ -1,7 +1,7 @@
-package com.demo.clean.data.datasources.remote
+package com.demo.clean.data.datasources.origins.remote
 
-import com.demo.clean.data.datasources.remote.Endpoints.GET_USERS
-import com.demo.clean.data.datasources.remote.Endpoints.GET_USER_PROFILE
+import com.demo.clean.data.datasources.origins.remote.Endpoints.GET_USERS
+import com.demo.clean.data.datasources.origins.remote.Endpoints.GET_USER_PROFILE
 import com.demo.clean.domain.models.UserProfile
 import io.reactivex.Observable
 import retrofit2.http.GET

@@ -1,7 +1,7 @@
-package com.demo.clean.data.datasources.remote.impl
+package com.demo.clean.data.datasources.origins.remote.impl
 
-import com.demo.clean.data.datasources.remote.Endpoints
-import com.demo.clean.data.datasources.remote.RemoteUsersApi
+import com.demo.clean.data.datasources.origins.remote.Endpoints
+import com.demo.clean.data.datasources.origins.remote.RemoteUsersApi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

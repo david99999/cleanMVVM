@@ -2,7 +2,7 @@ package com.demo.clean.data.datasources.impl
 
 import android.util.Log
 import com.demo.clean.data.datasources.RemoteUsersDataSource
-import com.demo.clean.data.datasources.remote.RemoteUsersApi
+import com.demo.clean.data.datasources.origins.remote.RemoteUsersApi
 import com.demo.clean.data.mappers.UserProfileMapper
 import com.demo.clean.domain.models.UserProfile
 import com.demo.clean.domain.models.UserShortInfo

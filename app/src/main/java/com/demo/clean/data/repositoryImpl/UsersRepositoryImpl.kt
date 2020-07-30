@@ -2,33 +2,28 @@ package com.demo.clean.data.repositoryImpl
 
 import android.util.Log
 import com.demo.clean.data.datasources.RemoteUsersDataSource
+import com.demo.clean.data.datasources.origins.local.UsersLocalDataSource
 import com.demo.clean.domain.models.UserProfile
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.domain.repository.UsersRepository
 import io.reactivex.Observable
 
-class UsersRepositoryImpl(private val dataSource: RemoteUsersDataSource) : UsersRepository {
-
-    var profiles = listOf<UserShortInfo>()
+class UsersRepositoryImpl(
+    private val remoteDataSource: RemoteUsersDataSource,
+    private val localDataSource: UsersLocalDataSource
+) : UsersRepository {
 
     override fun getUserProfile(userId: Int): Observable<UserProfile> {
-        return dataSource.getUserProfile(userId)
+        return remoteDataSource.getUserProfile(userId)
     }
 
     override fun getUsersList(): Observable<List<UserShortInfo>> {
-        if (profiles.isNotEmpty()) {
-            return Observable.just(profiles)
-                .doOnNext { Log.i("UsersRepositoryImpl", "returning cached items") }
-                .mergeWith(dataSource.getUsersList())
-                .doOnNext {
-                    Log.i("UsersRepositoryImpl", "saving and returning items from api")
-                    profiles = it
-                }
-        }
-        return dataSource.getUsersList()
+        return localDataSource.getUsersList()
+            .doOnNext { Log.i("UsersRepositoryImpl", "returning ${it.size} local items") }
+            .mergeWith(remoteDataSource.getUsersList())
             .doOnNext {
-                Log.i("UsersRepositoryImpl", "returning items straight from api")
-                profiles = it
+                Log.i("UsersRepositoryImpl", "saving and returning ${it.size} items from api")
+                localDataSource.saveUsers(it)
             }
     }
 }
