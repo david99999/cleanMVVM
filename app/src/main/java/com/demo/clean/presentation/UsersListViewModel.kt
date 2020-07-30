@@ -23,7 +23,14 @@ class UsersListViewModel(private val usersUseCase: GetUsersUseCase) : ViewModel(
             usersUseCase.getUsersList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ users.postValue(it) }, { Log.e("error", it.message ?: "Error") })
+                .subscribe(
+                    {
+                        Log.i("UsersListViewModel", "showing users into recyclerview")
+                        users.postValue(it)
+                    },
+                    {
+                        Log.e("error", it.message ?: "Error")
+                    })
         )
     }
 
