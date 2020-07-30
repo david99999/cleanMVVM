@@ -3,31 +3,31 @@ package com.demo.clean.data.repositoryImpl
 import android.util.Log
 import com.demo.clean.data.datasources.RemoteUsersDataSource
 import com.demo.clean.data.datasources.origins.local.UsersLocalDataSource
-import com.demo.clean.data.mappers.Mapper
-import com.demo.clean.data.models.network.UserProfile
+import com.demo.clean.data.models.network.toUserDetailedInfo
+import com.demo.clean.data.models.network.toUserShortInfo
 import com.demo.clean.domain.models.UserDetailedInfo
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.domain.repository.UsersRepository
 import io.reactivex.Observable
 
 class UsersRepositoryImpl(
-    private val userDetailedInfoMapper: Mapper<UserProfile, UserDetailedInfo>,
-    private val usersInfoMapper: Mapper<UserProfile, UserShortInfo>,
     private val remoteDataSource: RemoteUsersDataSource,
     private val localDataSource: UsersLocalDataSource
 ) : UsersRepository {
 
     override fun getUserProfile(userId: Int): Observable<UserDetailedInfo> {
         return remoteDataSource.getUserProfile(userId)
-            .map { userDetailedInfoMapper.map(it) }
+            .map { it.toUserDetailedInfo() }
     }
 
     override fun getUsersList(): Observable<List<UserShortInfo>> {
         return localDataSource.getUsersList()
-            .flatMap { Observable.fromIterable(it) }
-            .map { usersInfoMapper.map(it) }
-            .toList()
-            .toObservable()
+            .flatMap {
+                Observable.fromIterable(it)
+                    .map { item -> item.toUserShortInfo() }
+                    .toList()
+                    .toObservable()
+            }
             .doOnNext { Log.i("UsersRepositoryImpl", "returning ${it.size} local items") }
             .mergeWith(remoteDataSource.getUsersList()
                 .doOnNext {
@@ -43,8 +43,9 @@ class UsersRepositoryImpl(
                     Log.i("RemoteDataSourceImpl", "returning the api")
                     Observable.fromIterable(it)
                 }
-                .map { usersInfoMapper.map(it) }
+                .map { it.toUserShortInfo() }
                 .toList()
-                .toObservable())
+                .toObservable()
+            )
     }
 }

@@ -10,31 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.clean.R
-import com.demo.clean.data.di.ServiceLocator
-import com.demo.clean.data.mappers.UserDetailedInfoMapper
-import com.demo.clean.data.mappers.UserShortInfoMapper
 import com.demo.clean.domain.models.UserShortInfo
-import com.demo.clean.framework.room.UsersDatabase
 import com.demo.clean.presentation.UsersListViewModel
 import com.demo.clean.presentation.UsersListViewModelFactory
-import com.demo.clean.usecases.GetUsersUseCase
+import com.demo.clean.usecases.di.UseCasesProvider
 import kotlinx.android.synthetic.main.fragment_users.view.*
 
 class UsersFragment : Fragment() {
     private lateinit var content: View
     private lateinit var adapter: UsersAdapter
     private val viewModel: UsersListViewModel by viewModels {
-        UsersListViewModelFactory(
-            GetUsersUseCase(
-                ServiceLocator.getRepository(
-                    UsersDatabase.getUsersDao(
-                        requireActivity().application
-                    ),
-                    UserDetailedInfoMapper(),
-                    UserShortInfoMapper()
-                )
-            )
-        )
+        UsersListViewModelFactory(UseCasesProvider.getUsersUseCase(requireActivity().application))
     }
 
     override fun onCreateView(
