@@ -9,15 +9,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.demo.clean.R
+import com.demo.clean.framework.sharedpreferences.PreferencesManager
 import com.demo.clean.presentation.UserProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserProfileFragment : Fragment() {
     private val viewModel: UserProfileViewModel by viewModels()
 
     private val args: UserProfileFragmentArgs by navArgs()
+
+    @Inject
+    lateinit var preferences: PreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +38,7 @@ class UserProfileFragment : Fragment() {
             userProfileName.text = profile.name
             userProfileCompany.text = profile.company
             userProfileAddress.text = profile.address
+            preferences.setName(profile.name)
         })
         viewModel.getUserProfile(args.userInfo.id)
     }
