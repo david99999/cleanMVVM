@@ -9,8 +9,9 @@ import com.demo.clean.domain.models.UserDetailedInfo
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.domain.repository.UsersRepository
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class UsersRepositoryImpl(
+class UsersRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteUsersDataSource,
     private val localDataSource: UsersLocalDataSource
 ) : UsersRepository {

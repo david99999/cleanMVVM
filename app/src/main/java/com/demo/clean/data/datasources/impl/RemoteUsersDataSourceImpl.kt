@@ -4,8 +4,9 @@ import com.demo.clean.data.datasources.RemoteUsersDataSource
 import com.demo.clean.data.datasources.origins.remote.RemoteUsersApi
 import com.demo.clean.data.models.network.UserProfile
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class RemoteUsersDataSourceImpl(
+class RemoteUsersDataSourceImpl @Inject constructor(
     private val remoteApi: RemoteUsersApi
 ) : RemoteUsersDataSource {
 

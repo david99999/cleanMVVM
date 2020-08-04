@@ -10,16 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.demo.clean.R
 import com.demo.clean.presentation.UserProfileViewModel
-import com.demo.clean.presentation.UserProfileViewModelFactory
-import com.demo.clean.usecases.di.UseCasesProvider
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
+@AndroidEntryPoint
 class UserProfileFragment : Fragment() {
-    private val viewModel: UserProfileViewModel by viewModels {
-        UserProfileViewModelFactory(
-            UseCasesProvider.getUserInfoUseCase(requireActivity().application)
-        )
-    }
+    private val viewModel: UserProfileViewModel by viewModels()
 
     private val args: UserProfileFragmentArgs by navArgs()
 

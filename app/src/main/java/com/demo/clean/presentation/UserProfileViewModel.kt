@@ -1,21 +1,21 @@
 package com.demo.clean.presentation
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.demo.clean.data.models.network.UserProfile
 import com.demo.clean.domain.models.UserDetailedInfo
 import com.demo.clean.usecases.GetUserInfoUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class UserProfileViewModel(private val useCase: GetUserInfoUseCase) : ViewModel() {
+class UserProfileViewModel @ViewModelInject constructor(private val useCase: GetUserInfoUseCase) :
+    ViewModel() {
     var userProfile = MutableLiveData<UserDetailedInfo>()
     val subscriptions = CompositeDisposable()
 
     fun getUserProfile(userId: Int) {
-        subscriptions.add(useCase.GetUserProfile(userId)
+        subscriptions.add(useCase.getUserProfile(userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { userProfile.postValue(it) }
@@ -26,10 +26,4 @@ class UserProfileViewModel(private val useCase: GetUserInfoUseCase) : ViewModel(
         super.onCleared()
         subscriptions.clear()
     }
-}
-
-class UserProfileViewModelFactory(private val userInfoUseCase: GetUserInfoUseCase) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        UserProfileViewModel(userInfoUseCase) as T
 }

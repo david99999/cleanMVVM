@@ -7,15 +7,27 @@ import com.demo.clean.data.datasources.origins.remote.RemoteUsersApi
 import com.demo.clean.data.datasources.origins.remote.impl.ApiModule
 import com.demo.clean.data.repositoryImpl.UsersRepositoryImpl
 import com.demo.clean.domain.repository.UsersRepository
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Singleton
 
-object ServiceLocator {
+@Module
+@InstallIn(ApplicationComponent::class)
+class DataModule {
+
+    @Singleton
+    @Provides
     fun getRepository(
         usersLocalDataSource: UsersLocalDataSource,
         remoteUsersDataSource: RemoteUsersDataSource
     ): UsersRepository =
         UsersRepositoryImpl(remoteUsersDataSource, usersLocalDataSource)
 
-     fun getRemoteDataSourceImpl(): RemoteUsersDataSource {
+    @Singleton
+    @Provides
+    fun getRemoteDataSourceImpl(): RemoteUsersDataSource {
         return RemoteUsersDataSourceImpl(getRemoteApi())
     }
 

@@ -6,7 +6,7 @@ import com.demo.clean.domain.models.UserShortInfo
 import io.reactivex.Observable
 
 
-@Database(entities = [UserProfile::class], version = 1)
+@Database(entities = [UserProfile::class], version = 1, exportSchema = false)
 internal abstract class AppDatabase : RoomDatabase() {
     abstract fun usersDao(): UsersLocalDataSource
 }

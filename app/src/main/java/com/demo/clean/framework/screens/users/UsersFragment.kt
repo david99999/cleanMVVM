@@ -12,16 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.clean.R
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.presentation.UsersListViewModel
-import com.demo.clean.presentation.UsersListViewModelFactory
-import com.demo.clean.usecases.di.UseCasesProvider
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_users.view.*
 
+@AndroidEntryPoint
 class UsersFragment : Fragment() {
     private lateinit var content: View
     private lateinit var adapter: UsersAdapter
-    private val viewModel: UsersListViewModel by viewModels {
-        UsersListViewModelFactory(UseCasesProvider.getUsersUseCase(requireActivity().application))
-    }
+    private val viewModel: UsersListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

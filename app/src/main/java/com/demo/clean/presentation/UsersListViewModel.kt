@@ -1,6 +1,7 @@
 package com.demo.clean.presentation
 
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.demo.clean.domain.models.UserShortInfo
 import com.demo.clean.usecases.GetUsersUseCase
@@ -8,10 +9,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class UsersListViewModel(private val usersUseCase: GetUsersUseCase) : ViewModel() {
+class UsersListViewModel @ViewModelInject constructor(private val usersUseCase: GetUsersUseCase) : ViewModel() {
 
     var users = MutableLiveData<List<UserShortInfo>>()
-    val subscriptions = CompositeDisposable()
+    private val subscriptions = CompositeDisposable()
 
     fun fetchUsersList() {
         subscriptions.add(
@@ -33,10 +34,4 @@ class UsersListViewModel(private val usersUseCase: GetUsersUseCase) : ViewModel(
         super.onCleared()
         subscriptions.clear()
     }
-}
-
-class UsersListViewModelFactory(private val usersUseCase: GetUsersUseCase) :
-    ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        UsersListViewModel(usersUseCase) as T
 }
