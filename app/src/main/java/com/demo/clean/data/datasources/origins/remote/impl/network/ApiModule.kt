@@ -1,4 +1,4 @@
-package com.demo.clean.data.datasources.origins.remote.network
+package com.demo.clean.data.datasources.origins.remote.impl.network
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

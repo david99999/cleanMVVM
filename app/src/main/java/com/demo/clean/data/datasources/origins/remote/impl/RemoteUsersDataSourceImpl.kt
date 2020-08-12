@@ -1,7 +1,7 @@
 package com.demo.clean.data.datasources.origins.remote.impl
 
 import com.demo.clean.data.datasources.origins.remote.RemoteUsersDataSource
-import com.demo.clean.data.datasources.origins.remote.network.RemoteUsersApi
+import com.demo.clean.data.datasources.origins.remote.impl.network.RemoteUsersApi
 import com.demo.clean.data.models.network.UserProfile
 import io.reactivex.Observable
 import javax.inject.Inject

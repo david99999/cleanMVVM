@@ -1,4 +1,4 @@
-package com.demo.clean.data.datasources.origins.remote.network
+package com.demo.clean.data.datasources.origins.remote.impl.network
 
 object Endpoints {
     const val BASE_URL = "https://jsonplaceholder.typicode.com/"
