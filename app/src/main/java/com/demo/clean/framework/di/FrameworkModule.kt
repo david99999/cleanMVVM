@@ -3,7 +3,7 @@ package com.demo.clean.framework.di
 import android.app.Application
 import android.content.Context
 import androidx.hilt.Assisted
-import com.demo.clean.data.datasources.origins.local.UsersLocalDataSource
+import com.demo.clean.data.datasources.origins.local.LocalUsersDataSource
 import com.demo.clean.framework.room.UsersDatabase
 import com.demo.clean.framework.sharedpreferences.PreferencesManager
 import dagger.Module
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 class FrameworkModule {
 
     @Provides
-    fun getLocalDataSource(@Assisted application: Application): UsersLocalDataSource {
+    fun getLocalDataSource(@Assisted application: Application): LocalUsersDataSource {
         return UsersDatabase.getUsersDao(application)
     }
 

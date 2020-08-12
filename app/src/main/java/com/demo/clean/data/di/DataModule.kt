@@ -1,12 +1,12 @@
 package com.demo.clean.data.di
 
-import com.demo.clean.data.datasources.RemoteUsersDataSource
-import com.demo.clean.data.datasources.impl.RemoteUsersDataSourceImpl
-import com.demo.clean.data.datasources.origins.local.UsersLocalDataSource
-import com.demo.clean.data.datasources.origins.remote.RemoteUsersApi
-import com.demo.clean.data.datasources.origins.remote.impl.ApiModule
-import com.demo.clean.data.repositoryImpl.UsersRepositoryImpl
-import com.demo.clean.domain.repository.UsersRepository
+import com.demo.clean.data.datasources.origins.remote.RemoteUsersDataSource
+import com.demo.clean.data.datasources.origins.remote.impl.RemoteUsersDataSourceImpl
+import com.demo.clean.data.datasources.origins.local.LocalUsersDataSource
+import com.demo.clean.data.datasources.origins.remote.network.RemoteUsersApi
+import com.demo.clean.data.datasources.origins.remote.network.ApiModule
+import com.demo.clean.data.repository.impl.UsersRepositoryImpl
+import com.demo.clean.data.repository.UsersRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +20,7 @@ class DataModule {
     @Singleton
     @Provides
     fun getRepository(
-        usersLocalDataSource: UsersLocalDataSource,
+        usersLocalDataSource: LocalUsersDataSource,
         remoteUsersDataSource: RemoteUsersDataSource
     ): UsersRepository =
         UsersRepositoryImpl(remoteUsersDataSource, usersLocalDataSource)
@@ -28,7 +28,9 @@ class DataModule {
     @Singleton
     @Provides
     fun getRemoteDataSourceImpl(): RemoteUsersDataSource {
-        return RemoteUsersDataSourceImpl(getRemoteApi())
+        return RemoteUsersDataSourceImpl(
+            getRemoteApi()
+        )
     }
 
     private fun getRemoteApi(): RemoteUsersApi {

@@ -1,6 +1,6 @@
 package com.demo.clean.usecases.di
 
-import com.demo.clean.domain.repository.UsersRepository
+import com.demo.clean.data.repository.UsersRepository
 import com.demo.clean.usecases.GetUserInfoUseCase
 import com.demo.clean.usecases.GetUsersUseCase
 import dagger.Module

@@ -1,19 +1,19 @@
-package com.demo.clean.data.repositoryImpl
+package com.demo.clean.data.repository.impl
 
 import android.util.Log
-import com.demo.clean.data.datasources.RemoteUsersDataSource
-import com.demo.clean.data.datasources.origins.local.UsersLocalDataSource
+import com.demo.clean.data.datasources.origins.remote.RemoteUsersDataSource
+import com.demo.clean.data.datasources.origins.local.LocalUsersDataSource
 import com.demo.clean.data.models.network.toUserDetailedInfo
 import com.demo.clean.data.models.network.toUserShortInfo
 import com.demo.clean.domain.models.UserDetailedInfo
 import com.demo.clean.domain.models.UserShortInfo
-import com.demo.clean.domain.repository.UsersRepository
+import com.demo.clean.data.repository.UsersRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class UsersRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteUsersDataSource,
-    private val localDataSource: UsersLocalDataSource
+    private val localDataSource: LocalUsersDataSource
 ) : UsersRepository {
 
     override fun getUserProfile(userId: Int): Observable<UserDetailedInfo> {

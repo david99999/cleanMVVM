@@ -1,7 +1,7 @@
 package com.demo.clean.usecases
 
 import com.demo.clean.domain.models.UserDetailedInfo
-import com.demo.clean.domain.repository.UsersRepository
+import com.demo.clean.data.repository.UsersRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
